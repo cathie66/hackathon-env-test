@@ -1,7 +1,12 @@
 .env
+.env.*
+!.env.example
 .venv/
 .pycache/
 __pycache__/
 **/__pycache__/
 **pycache**/
 *.pyc
+outputs/
+assets/motion/*-old.mp4
+.streamlit/secrets.toml
