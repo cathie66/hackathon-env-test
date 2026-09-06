@@ -1161,6 +1161,8 @@ label {
   letter-spacing: -.025em;
   line-height: 32px;
   text-shadow: 0 1px 10px rgba(255,254,250,.72);
+  pointer-events: none;
+  user-select: none;
 }
 .room-sub {
   color: var(--text-secondary);
@@ -1225,6 +1227,9 @@ label {
   border-radius: 22px;
   object-fit: cover;
   object-position: center;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 .legacy-room-fallback,
 .lamp,
@@ -2071,7 +2076,7 @@ def render_stage(
             '<video class="room-media-frame motion-video" autoplay muted playsinline preload="auto" '
             'disablepictureinpicture controlslist="nodownload noplaybackrate nofullscreen" '
             f'data-playback="{playback_nonce}" '
-            f'aria-label="{html.escape(profile["name"])}的动作片段">'
+            'aria-hidden="true" tabindex="-1">'
             f'<source src="{html.escape(playback_url, quote=True)}" type="video/mp4" />'
             "</video>"
         )
@@ -2079,7 +2084,7 @@ def render_stage(
     return f"""
     <div class="{room_class}" aria-live="polite">
       <div class="room-media-layer">
-        <img class="room-media-frame room-idle-media{fallback_class}" src="{html.escape(idle_image_url, quote=True)}" alt="{html.escape(profile['name'])}在房间里" />
+        <img class="room-media-frame room-idle-media{fallback_class}" src="{html.escape(idle_image_url, quote=True)}" alt="" aria-hidden="true" draggable="false" />
         {motion}
       </div>
       {status}
