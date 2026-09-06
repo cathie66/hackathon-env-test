@@ -1551,15 +1551,44 @@ label {
 .st-key-behavior_observation_row:has(.st-key-behavior_photo_preview img) .st-key-behavior_photo_preview {
   pointer-events: none;
 }
-.st-key-behavior_observation_row [data-testid="stTextArea"] textarea {
+.st-key-behavior_context [data-testid="stTextAreaRootElement"],
+.st-key-behavior_context [data-baseweb="textarea"] {
+  border: 1px solid rgba(38,58,51,.12) !important;
+  border-radius: 14px !important;
+  background: rgba(255,254,250,.92) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.st-key-behavior_context [data-baseweb="base-input"],
+.st-key-behavior_context [data-testid="stTextArea"] textarea {
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.st-key-behavior_context [data-testid="stTextArea"] textarea {
   min-height: 104px !important;
   max-height: 104px !important;
-  border-color: var(--border);
-  border-radius: 16px;
-  background: rgba(255,254,250,.95);
   color: var(--text-primary);
   font-size: 14px;
   line-height: 20px;
+}
+.st-key-behavior_context [data-testid="stTextAreaRootElement"]:focus-within,
+.st-key-behavior_context [data-baseweb="textarea"]:has(textarea:focus),
+.st-key-behavior_context [data-baseweb="textarea"]:has(textarea:focus-visible),
+.st-key-behavior_context [data-baseweb="textarea"]:active {
+  border: 1px solid #789986 !important;
+  background: rgba(255,254,250,.92) !important;
+  box-shadow: 0 0 0 2px rgba(120,153,134,.10) !important;
+  outline: none !important;
+}
+.st-key-behavior_context textarea:focus,
+.st-key-behavior_context textarea:focus-visible,
+.st-key-behavior_context textarea:active {
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 .st-key-behavior_recorder [data-testid="stButton"] button[kind="secondary"],
 .st-key-understand_behavior [data-testid="stButton"] button {
