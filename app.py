@@ -1553,11 +1553,28 @@ label {
 }
 .st-key-behavior_context [data-testid="stTextAreaRootElement"],
 .st-key-behavior_context [data-baseweb="textarea"] {
+  box-sizing: border-box !important;
+  height: 104px !important;
+  min-height: 104px !important;
+  max-height: 104px !important;
   border: 1px solid rgba(38,58,51,.12) !important;
   border-radius: 14px !important;
   background: rgba(255,254,250,.92) !important;
   box-shadow: none !important;
   outline: none !important;
+}
+.st-key-behavior_context [data-testid="stTextArea"] {
+  min-height: 134px;
+}
+.st-key-behavior_context [data-testid="stWidgetLabel"] {
+  height: 20px;
+  min-height: 20px;
+  margin: 0 0 -1px;
+  padding: 0;
+}
+.st-key-behavior_context [data-testid="stWidgetLabel"] p {
+  margin: 0;
+  line-height: 20px;
 }
 .st-key-behavior_context [data-baseweb="base-input"],
 .st-key-behavior_context [data-testid="stTextArea"] textarea {
@@ -1568,8 +1585,8 @@ label {
   outline: none !important;
 }
 .st-key-behavior_context [data-testid="stTextArea"] textarea {
-  min-height: 104px !important;
-  max-height: 104px !important;
+  min-height: 102px !important;
+  max-height: 102px !important;
   color: var(--text-primary);
   font-size: 14px;
   line-height: 20px;
