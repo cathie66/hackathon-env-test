@@ -1409,16 +1409,30 @@ label {
   box-shadow: 0 0 0 2px rgba(120,153,134,.12) !important;
 }
 [data-testid="stChatInputSubmitButton"] {
-  width: 42px;
-  height: 42px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  margin: 5px;
+  margin: 2px;
+  padding: 0 !important;
+  line-height: 1;
   background: #789986 !important;
   color: #FFFEFA !important;
 }
-[data-testid="stChatInputSubmitButton"] svg {
-  color: #FFFEFA !important;
-  fill: #FFFEFA !important;
+[data-testid="stChatInputSubmitButton"] svg,
+[data-testid="stChatInputSubmitButton"] [data-testid="stIconMaterial"],
+[data-testid="stChatInputSubmitButton"] > span {
+  display: none !important;
+}
+[data-testid="stChatInputSubmitButton"]::after {
+  content: "";
+  display: block;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  background: center / 22px 22px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6' stroke='%23FFFEFA' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 .st-key-record_foreground,
