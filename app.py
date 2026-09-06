@@ -1200,6 +1200,10 @@ label {
   box-shadow: none;
   transform: translateX(-50%);
 }
+[data-testid="stElementContainer"]:has(.room-shell) {
+  height: 552px;
+  min-height: 552px;
+}
 .room-shell::before {
   display: none;
 }
@@ -1276,35 +1280,46 @@ label {
 
 .st-key-response_explanation,
 .st-key-response_explanation_live {
-  position: fixed;
+  position: static;
   z-index: 3;
-  top: 630px;
-  left: max(20px, calc((100vw - 390px) / 2));
-  bottom: auto;
-  width: max-content;
-  max-width: calc(100vw - 40px);
-  margin: 0;
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 10px 20px 8px;
+  overflow: visible;
+  translate: 0 67px;
   transform: none;
 }
 .st-key-response_explanation [data-testid="stExpander"],
 .st-key-response_explanation_live [data-testid="stExpander"] {
-  overflow: hidden;
-  border: 1px solid rgba(120,153,134,.22);
-  border-radius: 999px;
-  background: rgba(231,237,227,.78);
+  width: auto;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
 .st-key-response_explanation details summary,
 .st-key-response_explanation_live details summary {
+  display: inline-flex;
+  width: auto;
+  height: 34px;
   min-height: 34px;
-  padding: 0 13px;
-  color: #68756F;
-  font-size: 13px;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #5F746B;
+  font-size: 15px;
   font-weight: 500;
+  text-align: left;
 }
 .st-key-response_explanation details summary svg,
 .st-key-response_explanation_live details summary svg,
+.st-key-response_explanation details summary [data-testid="stIconMaterial"],
+.st-key-response_explanation_live details summary [data-testid="stIconMaterial"],
 .st-key-response_explanation details summary [data-testid="stExpanderToggleIcon"],
 .st-key-response_explanation_live details summary [data-testid="stExpanderToggleIcon"] {
   display: none !important;
