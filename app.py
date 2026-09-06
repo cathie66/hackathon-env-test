@@ -1,18 +1,14 @@
 from __future__ import annotations
 
 import base64
-import hashlib
 import html
 from io import BytesIO
 from pathlib import Path
 from typing import Optional
 
 import streamlit as st
-from streamlit import runtime
 from dotenv import load_dotenv
 from PIL import Image, UnidentifiedImageError
-from streamlit.elements.lib.image_utils import image_to_url
-from streamlit.elements.lib.layout_utils import LayoutConfig
 
 from behavior_memory import (
     BehaviorAnalysis,
@@ -1695,16 +1691,11 @@ def init_state() -> None:
 
 
 def streamlit_media_url(image_bytes: bytes) -> str:
-    """Register bytes with Streamlit's media manager and return its stable URL."""
-    digest = hashlib.sha256(image_bytes).hexdigest()[:16]
-    return image_to_url(
-        image_bytes,
-        layout_config=LayoutConfig(width="stretch"),
-        clamp=False,
-        channels="RGB",
-        output_format="auto",
-        image_id=f"pet-profile-{digest}",
-    )
+    """Return an inline image URL that remains valid across Cloud reruns."""
+    with Image.open(BytesIO(image_bytes)) as image:
+        mime_type = Image.MIME.get(image.format, "image/jpeg")
+    encoded = base64.b64encode(image_bytes).decode("ascii")
+    return f"data:{mime_type};base64,{encoded}"
 
 
 ASSETS_DIR = Path(__file__).resolve().parent / "assets"
@@ -1723,20 +1714,17 @@ ACTION_MEDIA = {
 
 
 def motion_video_url(action: str) -> Optional[str]:
-    """Register an available Motion Pack file; missing media stays on CSS fallback."""
+    """Inline an available Motion Pack file; missing media stays on CSS fallback."""
     filename = ACTION_MEDIA.get(action)
     if not filename:
         return None
     path = MOTION_DIR / filename
-    if not path.is_file() or path.stat().st_size == 0 or not runtime.exists():
+    if not path.is_file() or path.stat().st_size == 0:
         return None
     try:
-        return runtime.get_instance().media_file_mgr.add(
-            str(path),
-            "video/mp4",
-            f"motion-pack-{action}",
-        )
-    except (OSError, RuntimeError, ValueError):
+        encoded = base64.b64encode(path.read_bytes()).decode("ascii")
+        return f"data:video/mp4;base64,{encoded}"
+    except OSError:
         return None
 
 
@@ -1751,7 +1739,7 @@ def is_renderable_image(image_bytes: bytes) -> bool:
 
 
 def local_image_url(path: Path) -> Optional[str]:
-    """Load a project-relative image through Streamlit's managed media endpoint."""
+    """Load a project-relative image as a Cloud-safe inline URL."""
     try:
         image_bytes = path.read_bytes()
     except OSError:
@@ -2063,7 +2051,7 @@ def render_stage(
         caption = f'<div class="caption">{html.escape(response.caption)}</div>'
     motion = ""
     if video_url:
-        playback_url = f"{video_url}?play={playback_nonce}"
+        playback_url = f"{video_url}#play={playback_nonce}"
         motion = (
             '<video class="room-media-frame motion-video" autoplay muted playsinline preload="auto" '
             'disablepictureinpicture controlslist="nodownload noplaybackrate nofullscreen" '
